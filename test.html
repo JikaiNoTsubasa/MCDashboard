@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Metrics</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <style>
+    html
+    {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    --color-gold: #e4cd70;
+    --bg-color: #F5F6FB; /* #22252c;*/
+    --bg-note-color: #FFFFFF; /*#282c35;*/
+    --bg-light-color: #2b323c;
+    --title-note-color: #e4707d;
+    --feature-note-color: #70e48b;
+    }
+
+    body
+    {
+    background: var(--bg-color);
+    color: #FFF;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    }
+
+    .title_page
+    {
+      width: 20%;
+      text-align: center;
+      margin: 0;
+      font-size: 30px;
+      line-height: 30px;
+      margin: auto;
+      background: var(--bg-note-color);
+      color: var(--title-note-color);
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .panel
+    {
+      width: 80%;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    .panel_data
+    {
+      background: var(--bg-note-color);
+      margin-bottom: 20px;
+      width: 100%;
+      display: inline-block;
+      margin-right: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .panel_standard
+    {
+      background: var(--bg-note-color);
+      margin-bottom: 20px;
+      width: 100%;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .data_highlight
+    {
+      font-size: 20px;
+      padding: 5px;
+      color: var(--feature-note-color);
+    }
+
+    </style>
+  </head>
+  <body>
+    <div class="title_page">
+      MC Dashboard
+    </div>
+    <div class="panel">
+      <div class="panel_standard">
+        <h3>Current Heap Percentage</h3>
+        <span class="data_highlight">###CUR_HP### %</span>
+      </div>
+
+      <div class="panel_standard">
+        <h3>Current Online Players:</h3>
+        <span class="data_highlight">###CUR_OP###</span>
+      </div>
+
+      <div class="panel_data">
+        <canvas id="chartHeap" width="100%" height="300"></canvas>
+
+      </div><!-- end panel data -->
+      <div class="panel_data">
+        <canvas id="chartPlayers" width="100%" height="300"></canvas>
+      </div>
+
+    </div>
+
+    <script>
+    var labs = [###LABELS###];
+    var valHU = [###DATA_HU###];
+    var valHM = [###DATA_HM###];
+    var valOP = [###DATA_OP###];
+    var ctx = document.getElementById('chartHeap').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labs,
+        datasets: [{
+          label: 'Heap Max',
+          backgroundColor: 'rgba(228, 112, 125, 0.2)',
+          borderColor: 'rgba(228, 112, 125, 1)',
+          hoverBackgroundColor: 'rgba(255, 206, 86, 0.2)',
+          hoverBorderColor: 'rgba(255, 206, 86, 1)',
+          data: valHM,
+          borderWidth: 1
+        },
+        {
+          label: 'Heap Usage',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          hoverBackgroundColor: 'rgba(255, 206, 86, 0.2)',
+          hoverBorderColor: 'rgba(255, 206, 86, 1)',
+          data: valHU,
+          borderWidth: 1
+        }
+      ]
+      },
+      options: {
+        maintainAspectRatio: false
+      }
+    });
+
+    var ctx2 = document.getElementById('chartPlayers').getContext('2d');
+    var myChart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: labs,
+        datasets: [{
+          label: 'Online Players',
+          backgroundColor: 'rgba(228, 112, 125, 0.2)',
+          borderColor: 'rgba(228, 112, 125, 1)',
+          hoverBackgroundColor: 'rgba(255, 206, 86, 0.2)',
+          hoverBorderColor: 'rgba(255, 206, 86, 1)',
+          data: valOP,
+          borderWidth: 1
+        },
+      ]
+      },
+      options: {
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    suggestedMin: 0
+                }
+            }]
+        }
+      }
+    });
+    </script>
+  </body>
+</html>

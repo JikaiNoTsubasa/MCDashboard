@@ -1,0 +1,10 @@
+name: MCDashboard
+main: fr.triedge.minecraft.dashboard.PluginDashboard
+version: 1.16
+author: Jikai
+api-version: 1.16
+
+commands:
+  none:
+    description: Dummy
+    usage: /none
